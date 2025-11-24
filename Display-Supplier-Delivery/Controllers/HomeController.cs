@@ -42,6 +42,11 @@ namespace Display_Supplier_Delivery.Controllers
             return View(data);
         }
 
+        public IActionResult Details()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

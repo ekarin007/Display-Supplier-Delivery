@@ -1,0 +1,88 @@
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="details-container">
+    
+    <!-- Top Navigation & Header Area -->
+    <div style="display: flex; gap: 5px; margin-bottom: 5px;">
+        <a href="@Url.Action("Index", "Home")" class="back-btn">Back</a>
+        
+        <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px;">
+            <div style="display: flex; gap: 5px;">
+                <div class="blue-box">@DateTime.Now.ToString("d MMMM, yyyy")</div>
+                <div class="title-box" style="background-color: #203354;">MATERIAL RECEIVING LIST</div>
+                <div class="right-info-box">
+                    <div class="right-cell">SUPPLIER</div>
+                    <div class="right-cell">STATUS</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 5px;">
+                <div class="blue-box" id="clock">@DateTime.Now.ToString("HH:mm:ss")</div>
+                <div class="title-box">SHIPPING TIME CHART : 11:30-12:00</div>
+                <div class="right-info-box">
+                    <div class="right-cell">TAP</div>
+                    <div class="right-cell" style="color: #00ff00;">ON PLAN</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Table -->
+    <table class="details-table">
+        <thead>
+            <tr>
+                <th rowspan="2" style="width: 50px;">Items</th>
+                <th rowspan="2">Parts no.</th>
+                <th colspan="2">Plan Receive</th>
+                <th colspan="2">Actual</th>
+                <th colspan="2">Diff</th>
+            </tr>
+            <tr>
+                <th>Q'ty(Pcs)</th>
+                <th>Q'ty(Box)</th>
+                <th>Q'ty(Pcs)</th>
+                <th>Q'ty(Box)</th>
+                <th>Q'ty(Pcs)</th>
+                <th>Q'ty(Box)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 1; i <= 11; i++)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>SEC@(i.ToString("D2"))-0A@(100 + i * 20)</td> <!-- Mockup Part No -->
+                    <td>@(i * 100)</td>
+                    <td>@(i)</td>
+                    <td>@(i * 100)</td>
+                    <td>@(i)</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="footer-row">
+                <td colspan="2">Total 20 Items</td>
+                <td>10420</td>
+                <td>116</td>
+                <td>10420</td>
+                <td>116</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@section scripts {
+    <script>
+        // Digital clock
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById("clock").innerText = now.toLocaleTimeString('en-GB', { hour12: false });
+        }, 1000);
+    </script>
+}
