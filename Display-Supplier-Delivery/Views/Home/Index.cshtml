@@ -1,8 +1,147 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<ReceivingItemVM>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<style>
+    body {
+        background: white;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .header-title {
+        background: #0094ff;
+        color: white;
+        padding: 8px;
+        font-size: 26px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .time-range {
+        background: #f2f2f2;
+        padding: 6px;
+        font-size: 22px;
+        font-weight: bold;
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+
+    .big-table th {
+        background: #00b050;
+        font-size: 20px;
+        text-align: center;
+        padding: 6px;
+        border: 1px solid #ccc;
+        font-weight: bold;
+    }
+
+    .big-table td {
+        font-size: 22px;
+        border: 1px solid #ccc;
+        padding: 4px;
+        text-align: center;
+    }
+
+    #status-onplan {
+        background: #1e7e34;
+        color: white;
+        font-weight: bold;
+    }
+
+    .status-delay {
+        background: #ff0000;
+        color: white;
+        font-weight: bold;
+    }
+
+    .summary-header {
+        background: #00b050;
+        color: black;
+        font-size: 24px;
+        font-weight: bold;
+        padding: 10px;
+        text-align: left;
+    }
+
+    .summary-table th,
+    .summary-table td {
+        border: 1px solid #666;
+        padding: 6px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .summary-table th {
+        background: #c6efce;
+        font-weight: bold;
+    }
+</style>
+
+
+
+
+<table class="table big-table mt-2">
+    <thead>
+        <tr class="header-title" valign="middle"><td>Date : @DateTime.Now.ToString("d MMMM, yyyy")</td><td colspan="7" valign="middle"> SHIPPING TIME CHART</td></tr>
+        <tr class="header-title" valign="middle"><td>RAW MATERIAL RECEIVING LIST</td><td colspan="7" valign="middle"> 14:00 - 14:30</td></tr>
+        <tr>
+            <th>Items</th>
+            <th>Supplier</th>
+            <th>Time</th>
+            <th>Volume (PN)</th>
+            <th>Volume (Pc)</th>
+            <th colspan="3">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="width:10%">@item.ItemNo</td>
+                <td style="width:10%">@item.Supplier</td>
+                <td style="width:10%">@item.Time</td>
+                <td style="width:10%">@item.VolumePN</td>
+                <td style="width:10%">@item.VolumePC</td>
+                <td style="width:10%" id="status-onplan">ON PLAN</td>
+                <td style="width:10%"></td>
+                <td style="width:10%"></td>
+            </tr>
+        }
+
+
+
+    </tbody>
+</table>
+
+<div class="summary-header">STATUS SUPPLIER</div>
+
+<table class="table summary-table">
+    <thead>
+        <tr>
+            <th>Plan</th>
+            <th>On Plan</th>
+            <th>Delay</th>
+            <th>Total QTY (PN)</th>
+            <th>Total QTY (Pc)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>16</td>
+            <td>12</td>
+            <td style="background:#ffc000;">1</td>
+            <td>106</td>
+            <td>140579</td>
+        </tr>
+    </tbody>
+</table>
+
+
+@section scripts {
+    <script>
+        // Digital clock
+        setInterval(() => {
+            document.getElementById("clock").innerText =
+                new Date().toLocaleTimeString();
+        }, 1000);
+    </script>
+}
