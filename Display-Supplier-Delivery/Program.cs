@@ -27,6 +27,12 @@ namespace Display_Supplier_Delivery
             app.UseAuthorization();
 
             app.MapControllerRoute(
+                name: "status",
+                pattern: "{id}",
+                defaults: new { controller = "Home", action = "Index" },
+                constraints: new { id = "RM|PT" });
+
+            app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 

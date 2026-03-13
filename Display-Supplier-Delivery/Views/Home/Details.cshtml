@@ -1,14 +1,17 @@
+@model List<Display_Supplier_Delivery.Models.PartDetailViewModel>
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string supplierName = ViewBag.Supplier as string;
+    string time = ViewBag.Time as string;
 }
 
 <div class="details-container">
-    
+
     <!-- Top Navigation & Header Area -->
     <div style="display: flex; gap: 5px; margin-bottom: 5px;">
         <a href="@Url.Action("Index", "Home")" class="back-btn">Back</a>
-        
+
         <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 5px;">
             <div style="display: flex; gap: 5px;">
                 <div class="blue-box">@DateTime.Now.ToString("d MMMM, yyyy")</div>
@@ -19,11 +22,12 @@
                 </div>
             </div>
             <div style="display: flex; gap: 5px;">
-                <div class="blue-box" id="clock">@DateTime.Now.ToString("HH:mm:ss")</div>
-                <div class="title-box">SHIPPING TIME CHART : 11:30-12:00</div>
+                <div class="blue-box" id="clock" style="color: #00ff00;">@DateTime.Now.ToString("HH:mm:ss")</div>
+                <div class="title-box">SHIPPING TIME CHART : @time</div>
                 <div class="right-info-box">
-                    <div class="right-cell">TAP</div>
-                    <div class="right-cell" style="color: #00ff00;">ON PLAN</div>
+                    <div class="right-cell">@supplierName</div>
+                    <div class="right-cell" style="color: @(ViewBag.Status == "DELAY" ? "#ff0000" : "#00ff00");">
+                        @ViewBag.Status</div>
                 </div>
             </div>
         </div>
@@ -49,29 +53,40 @@
             </tr>
         </thead>
         <tbody>
-            @for (int i = 1; i <= 11; i++)
+            @if (Model != null && Model.Any())
+            {
+                int i = 1;
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td>@item.PartNo</td>
+                        <td>@item.PlanPcs.ToString("#,##0")</td>
+                        <td>@item.PlanBox.ToString("#,##0")</td>
+                        <td>@item.ActualPcs.ToString("#,##0")</td>
+                        <td>@item.ActualBox.ToString("#,##0")</td>
+                        <td>@item.DiffPcs.ToString("#,##0")</td>
+                        <td>@item.DiffBox.ToString("#,##0")</td>
+                    </tr>
+                    i++;
+                }
+            }
+            else
             {
                 <tr>
-                    <td>@i</td>
-                    <td>SEC@(i.ToString("D2"))-0A@(100 + i * 20)</td> <!-- Mockup Part No -->
-                    <td>@(i * 100)</td>
-                    <td>@(i)</td>
-                    <td>@(i * 100)</td>
-                    <td>@(i)</td>
-                    <td>0</td>
-                    <td>0</td>
+                    <td colspan="8" style="text-align:center;">No Data Found</td>
                 </tr>
             }
         </tbody>
         <tfoot>
             <tr class="footer-row">
-                <td colspan="2">Total 20 Items</td>
-                <td>10420</td>
-                <td>116</td>
-                <td>10420</td>
-                <td>116</td>
-                <td>0</td>
-                <td>0</td>
+                <td colspan="2">Total @Model.Count() Items</td>
+                <td>@Model.Sum(x=>x.PlanPcs).ToString("#,##0")</td>
+                <td>@Model.Sum(x => x.PlanBox).ToString("#,##0")</td>
+                <td>@Model.Sum(x => x.ActualPcs).ToString("#,##0")</td>
+                <td>@Model.Sum(x => x.ActualBox).ToString("#,##0")</td>
+                <td>@Model.Sum(x => x.DiffPcs).ToString("#,##0")</td>
+                <td>@Model.Sum(x => x.DiffBox).ToString("#,##0")</td>
             </tr>
         </tfoot>
     </table>

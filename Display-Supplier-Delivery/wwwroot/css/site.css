@@ -23,18 +23,18 @@ html {
 
 body {
   margin-bottom: 0;
-  background-color: #0e1621;
-  /* Dark background matching the image roughly */
-  color: white;
+  background-color: #ffffff;
+  /* Light background */
+  color: black;
   overflow-x: hidden;
 }
 
 /* Details Page Styles */
 .details-container {
-  background-color: #0e1621;
+  background-color: #ffffff;
   min-height: 100vh;
   padding: 10px;
-  color: white;
+  color: black;
 }
 
 .back-btn {
@@ -108,14 +108,14 @@ body {
 .details-table {
   width: 100%;
   border-collapse: collapse;
-  color: #e0e0e0;
+  color: black;
   background-color: #0e1621;
   margin-top: 10px;
 }
 
 .details-table th {
-  background-color: #004d40;
-  color: white;
+  background-color: #1beb39;
+  color: black;
   border: 1px solid #2c3e50;
   padding: 10px 5px;
   text-align: center;
@@ -127,18 +127,18 @@ body {
   border: 1px solid #2c3e50;
   padding: 8px 5px;
   text-align: center;
-  background-color: #0e1621;
+  background-color: #ffffff;
 }
 
 .details-table tr:nth-child(even) td {
-  background-color: #131d2b;
+  background-color: #ffffff;
 }
 
 .footer-row td {
-  background-color: #004d40 !important;
-  color: white;
-  font-weight: bold;
-  border-top: 2px solid #2c3e50;
+    background-color: #1beb39 !important;
+    color: black;
+    font-weight: bold;
+    border-top: 2px solid #2c3e50;
 }
 
 /* TV / Large Screen Optimization */

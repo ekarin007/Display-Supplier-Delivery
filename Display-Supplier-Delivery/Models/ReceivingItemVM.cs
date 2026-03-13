@@ -8,6 +8,8 @@
         public int VolumePN { get; set; }
         public int VolumePC { get; set; }
         public string Status { get; set; }   // ON PLAN / Delay
+        public string Receiver { get; set; }
+        public string MaterialStatus { get; set; }
         public string Remark { get; set; }
     }
 }
